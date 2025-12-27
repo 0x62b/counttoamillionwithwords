@@ -44,6 +44,9 @@ def new_message(event, say, client):
   write = 0
 
   if parsed != -1:
+    with open("scores.json", "r") as f:
+      json = json.load(f)
+    
     if parsed == current + 1 and user_id != last_user:
       emoji = "white_check_mark"
 
@@ -67,6 +70,10 @@ def new_message(event, say, client):
       write = parsed
       with open("user.txt", "w") as f:
         f.write(user_id)
+
+      json[user_id] = json[user_id] + 1 if json[user_id] else 1
+      with open("scores.json", "w") as f:
+        json.dump(json, f)
     else:
       client.reactions_add(
         channel=event.get("channel"),
