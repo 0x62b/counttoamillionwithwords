@@ -37,7 +37,7 @@ def new_message(event, say, client):
     else:
       client.reactions_add(
         channel=event.get("channel"),
-        name="double_exclamation_mark",
+        name="bangbang",
         timestamp=event.get("ts")
       )
 
