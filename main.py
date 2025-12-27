@@ -54,7 +54,7 @@ def new_message(event, say, client):
         emoji = "sixseven"
       
       if prime(parsed):
-        emoji = "potato"
+        emoji = "chess-brilliant"
 
       client.reactions_add(
         channel=event.get("channel"),
