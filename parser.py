@@ -28,7 +28,7 @@ def parse(message):
       curr += values[token]
       i += 1
     elif token in scales:
-      curr *= scales[token]
+      curr = (curr or 1) * scales[token]
 
       # if the multiplier is hundreds, it can still have more
       # that can be added to current, ex 'one hundred and fifty'
