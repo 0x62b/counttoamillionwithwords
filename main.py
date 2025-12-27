@@ -17,7 +17,7 @@ app = App(
 CHANNEL = "C0A5RFXHXJN"
 
 @app.event("message")
-def new_message(event, say):
+def new_message(event, say, client):
   if event.get("channel") != CHANNEL:
     return
 
@@ -25,6 +25,11 @@ def new_message(event, say):
   parsed = parse(text)
 
   if parsed != -1:
+    client.reactions_add(
+      channel=event.get("channel"),
+      name="white_check_mark",
+      timestamp=event.get("ts")
+    )
     say(f"parsed {parsed}")
 
 flask = Flask(__name__)
