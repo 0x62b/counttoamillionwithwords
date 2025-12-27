@@ -141,5 +141,21 @@ def override():
   }
   return jsonify(res)
 
+@flask.route("/commands/leaderboard", methods=["POST"])
+def leaderboard():
+  with open("scores.json", "r") as f:
+    scores = json.load(f)
+  
+  best = sorted(scores.items(), key=lambda x: x[1], reverse=True)[:5]
+  
+  text = ""
+  for i, (user, score) in enumerate(best):
+    text += f"{i + 1}. <@{user}>: {score}\n"
+
+  return jsonify({
+    "response_type": "ephemeral",
+    "text": text
+  })
+
 if __name__ == "__main__":
   flask.run(host="0.0.0.0", port=5000)
