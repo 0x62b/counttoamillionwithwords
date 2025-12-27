@@ -72,7 +72,7 @@ def new_message(event, say, client):
       with open("user.txt", "w") as f:
         f.write(user_id)
 
-      scores[user_id] = scores[user_id] + 1 if scores[user_id] else 1
+      scores[user_id] = scores.get(user_id, 0) + 1
       with open("scores.json", "w") as f:
         json.dump(scores, f)
       
