@@ -34,9 +34,17 @@ def new_message(event, say, client):
 
   if parsed != -1:
     if parsed == current + 1 and user_id != last_user:
+      emoji = "white_check_mark"
+
+      if str(parsed).endswith("69"):
+        emoji = "ok_hand"
+      
+      if str(parsed).endswith("67"):
+        emoji = "sixseven"
+
       client.reactions_add(
         channel=event.get("channel"),
-        name="white_check_mark",
+        name=emoji,
         timestamp=event.get("ts")
       )
       write = parsed
