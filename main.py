@@ -81,6 +81,12 @@ def new_message(event, say, client):
       write = current
     with open("number.txt", "w") as f:
       f.write(str(write))
+  else:
+    client.reactions_add(
+      channel=event.get("channel"),
+      name="thonking",
+      timestamp=event.get("ts")
+    )
 
 flask = Flask(__name__)
 handler = SlackRequestHandler(app)
