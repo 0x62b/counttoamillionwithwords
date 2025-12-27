@@ -77,7 +77,7 @@ def override():
 
   app.client.chat_postMessage(
     channel=data.get("channel_id"),
-    text=f"counting number updated to {split[0]} by <@{data.get("user_id")}>"
+    text=f"counting number updated to {split[0]} by <@{data.get('user_id')}>"
   )
 
   res = {
