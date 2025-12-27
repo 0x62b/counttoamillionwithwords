@@ -27,19 +27,20 @@ def new_message(event, say, client):
   with open("number.txt", "r+") as f:
     current = int(f.read() or "0")
 
-  if parsed != -1:
-    if parsed == current + 1:
-      client.reactions_add(
-        channel=event.get("channel"),
-        name="white_check_mark",
-        timestamp=event.get("ts")
-      )
-    else:
-      client.reactions_add(
-        channel=event.get("channel"),
-        name="bangbang",
-        timestamp=event.get("ts")
-      )
+    if parsed != -1:
+      if parsed == current + 1:
+        client.reactions_add(
+          channel=event.get("channel"),
+          name="white_check_mark",
+          timestamp=event.get("ts")
+        )
+        f.write(str(parsed))
+      else:
+        client.reactions_add(
+          channel=event.get("channel"),
+          name="bangbang",
+          timestamp=event.get("ts")
+        )
 
 flask = Flask(__name__)
 handler = SlackRequestHandler(app)
