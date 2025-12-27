@@ -64,6 +64,13 @@ def override():
   data = request.form
   text = data.get("text", "")
   split = text.split()
+
+  if data.get("user_id") != "U092839T3A7":
+    res = {
+      "response_type": "ephermeral",
+      "text": "you don't have permissions to do this"
+    }
+    return jsonify(res)
   
   if len(split) != 1 or not split[0].isdigit():
     res = {
@@ -77,7 +84,7 @@ def override():
 
   app.client.chat_postMessage(
     channel=data.get("channel_id"),
-    text=f"counting number updated to {split[0]} by <@{data.get('user_id')}>"
+    text=f"counting number updated to {split[0]}"
   )
 
   res = {
