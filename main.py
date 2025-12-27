@@ -22,8 +22,10 @@ def new_message(event, say):
     return
 
   text = event.get("text")
+  parsed = parse(text)
 
-  say(f"parsed {parse(text)}")
+  if parsed != -1:
+    say(f"parsed {parsed}")
 
 flask = Flask(__name__)
 handler = SlackRequestHandler(app)
