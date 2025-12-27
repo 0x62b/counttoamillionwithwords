@@ -15,7 +15,7 @@ app = App(
   signing_secret=os.getenv("SLACK_SIGNING_SECRET")
 )
 
-CHANNEL = "C0A5RFXHXJN"
+CHANNEL = os.getenv("COUNTING_CHANNEL")
 
 def prime(n):
   ret = True
