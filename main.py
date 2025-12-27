@@ -70,6 +70,14 @@ def new_message(event, say, client):
         name="bangbang",
         timestamp=event.get("ts")
       )
+
+      if parsed != current + 1:
+        client.chat_postEphemeral(
+          channel=event.get("channel"),
+          user=user_id,
+          text=f"No, the next number {current + 1} (but in words obv)"
+        )
+
       write = current
     with open("number.txt", "w") as f:
       f.write(str(write))
