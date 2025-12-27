@@ -1,7 +1,7 @@
 import os
 
 from dotenv import load_dotenv
-from flask import Flask, request
+from flask import Flask, jsonify, request
 from slack_bolt import App
 from slack_bolt.adapter.flask import SlackRequestHandler
 
@@ -58,6 +58,32 @@ handler = SlackRequestHandler(app)
 @flask.route("/slack/events", methods=["POST"])
 def slack_events():
   return handler.handle(request)
+
+@flask.route("/commands/override", methods=["POST"])
+def override():
+  data = request.form
+  text = data.get("text", "")
+  split = text.split()
+  
+  if len(split) != 1 or not split[0].isdigit():
+    res = {
+      "response_type": "ephemeral",
+      "text": "need one argument - number to set"
+    }
+    return jsonify(res)
+
+  with open("number.txt", "w") as f:
+    f.write(split[0])
+
+  app.client.chat_postMessage(
+    channel=data.get("channel_id"),
+    text=f"counting number updated to {split[0]} by <@{data.get("user_id")}>"
+  )
+
+  res = {
+    "response_type": "ephemeral",
+    "text": f"success"
+  }
 
 if __name__ == "__main__":
   flask.run(host="0.0.0.0", port=5000)
