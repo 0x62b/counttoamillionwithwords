@@ -45,7 +45,7 @@ def new_message(event, say, client):
       )
       write = current
     with open("number.txt", "w") as f:
-      f.write(write)
+      f.write(str(write))
 
 flask = Flask(__name__)
 handler = SlackRequestHandler(app)
