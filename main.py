@@ -74,6 +74,7 @@ def new_message(event, say, client):
       json[user_id] = json[user_id] + 1 if json[user_id] else 1
       with open("scores.json", "w") as f:
         json.dump(json, f)
+      
     else:
       client.reactions_add(
         channel=event.get("channel"),
