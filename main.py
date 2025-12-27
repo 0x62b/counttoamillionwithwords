@@ -24,7 +24,7 @@ def new_message(event, say, client):
   text = event.get("text")
   parsed = parse(text)
 
-  with open("number.txt", "r+") as f:
+  with open("number.txt", "w+") as f:
     current = int(f.read() or "0")
 
     if parsed != -1:
