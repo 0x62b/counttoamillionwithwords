@@ -14,7 +14,7 @@ app = App(
 
 CHANNEL = "C0A5RFXHXJN"
 
-@app.event("message.channels")
+@app.event("message")
 def new_message(event, say):
   pass
 
