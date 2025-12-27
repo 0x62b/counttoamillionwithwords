@@ -34,6 +34,7 @@ def new_message(event, say, client):
     return
 
   text = event.get("text")
+  text = text.replace("-", "")
   parsed = parse(text)
 
   with open("number.txt", "r") as f:
