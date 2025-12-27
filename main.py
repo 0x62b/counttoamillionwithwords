@@ -84,6 +84,7 @@ def override():
     "response_type": "ephemeral",
     "text": f"success"
   }
+  return jsonify(res)
 
 if __name__ == "__main__":
   flask.run(host="0.0.0.0", port=5000)
