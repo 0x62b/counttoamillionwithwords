@@ -26,17 +26,22 @@ def new_message(event, say, client):
 
   with open("number.txt", "r") as f:
     current = int(f.read() or "0")
+  with open("user.txt", "r") as f:
+    last_user = f.read()
 
+  user_id = event.get("user")
   write = 0
 
   if parsed != -1:
-    if parsed == current + 1:
+    if parsed == current + 1 and user_id != last_user:
       client.reactions_add(
         channel=event.get("channel"),
         name="white_check_mark",
         timestamp=event.get("ts")
       )
       write = parsed
+      with open("user.txt", "w") as f:
+        f.write(user_id)
     else:
       client.reactions_add(
         channel=event.get("channel"),
