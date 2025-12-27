@@ -41,6 +41,7 @@ def new_message(event, say, client):
           name="bangbang",
           timestamp=event.get("ts")
         )
+        f.write(str(current))
 
 flask = Flask(__name__)
 handler = SlackRequestHandler(app)
