@@ -16,6 +16,17 @@ app = App(
 
 CHANNEL = "C0A5RFXHXJN"
 
+def prime(n):
+  ret = True
+  if n <= 1:
+    ret = False
+  else:
+    for i in range(2, (n ** 0.5) + 1):
+      if n % i == 0:
+        ret = False
+        break
+  return ret
+
 @app.event("message")
 def new_message(event, say, client):
   if event.get("channel") != CHANNEL:
@@ -41,6 +52,9 @@ def new_message(event, say, client):
       
       if str(parsed).endswith("67"):
         emoji = "sixseven"
+      
+      if prime(parsed):
+        emoji = "potato"
 
       client.reactions_add(
         channel=event.get("channel"),
