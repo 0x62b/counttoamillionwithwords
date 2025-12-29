@@ -45,30 +45,34 @@ def new_message(event, say, client):
   user_id = event.get("user")
   write = 0
 
+  reactions = []
+
   if parsed != -1:
     with open("scores.json", "r") as f:
       scores = json.load(f)
     
     if parsed == current + 1 and user_id != last_user:
-      emoji = "white_check_mark"
+      reactions.append("white_check_mark")
 
       if str(parsed).endswith("69"):
-        emoji = "ok_hand"
+        reactions.append("ok_hand")
       
       if str(parsed).endswith("67"):
-        emoji = "sixseven"
+        reactions.append("sixseven")
       
       if prime(parsed):
-        emoji = "chess-brilliant"
+        reactions.append("chess_brilliant")
       
       if parsed % 100 == 0:
-        emoji = "tada"
+        reactions.append("tada")
+      
+      for reaction in reactions:
+        client.reactions_add(
+          channel=event.get("channel"),
+          name=reaction,
+          timestamp=event.get("ts")
+        )
 
-      client.reactions_add(
-        channel=event.get("channel"),
-        name=emoji,
-        timestamp=event.get("ts")
-      )
       write = parsed
       with open("user.txt", "w") as f:
         f.write(user_id)
