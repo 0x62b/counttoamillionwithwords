@@ -6,3 +6,7 @@ reacts with :sixseven: when number ends with 67\
 reacts with :ok_hand: when number ends with 69\
 reacts with :chess-brilliant: when number is prime\
 reacts with :tada: when number modulo 100 is 0
+
+There are two routes for commands:
+* one to override the number
+* one to view the leaderboard
