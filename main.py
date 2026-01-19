@@ -10,7 +10,7 @@ from parser import parse
 
 load_dotenv()
 
-app = App(
+slack_app = App(
   token=os.getenv("SLACK_BOT_TOKEN"),
   signing_secret=os.getenv("SLACK_SIGNING_SECRET")
 )
@@ -28,7 +28,7 @@ def prime(n):
         break
   return ret
 
-@app.event("message")
+@slack_app.event("message")
 def new_message(event, say, client):
   if event.get("channel") != CHANNEL:
     return
@@ -105,14 +105,14 @@ def new_message(event, say, client):
       timestamp=event.get("ts")
     )
 
-flask = Flask(__name__)
-handler = SlackRequestHandler(app)
+app = Flask(__name__)
+handler = SlackRequestHandler(slack_app)
 
-@flask.route("/slack/events", methods=["POST"])
+@app.route("/slack/events", methods=["POST"])
 def slack_events():
   return handler.handle(request)
 
-@flask.route("/commands/override", methods=["POST"])
+@app.route("/commands/override", methods=["POST"])
 def override():
   data = request.form
   text = data.get("text", "")
@@ -135,7 +135,7 @@ def override():
   with open("number.txt", "w") as f:
     f.write(split[0])
 
-  app.client.chat_postMessage(
+  slack_app.client.chat_postMessage(
     channel=data.get("channel_id"),
     text=f"counting number updated to {split[0]}"
   )
@@ -146,7 +146,7 @@ def override():
   }
   return jsonify(res)
 
-@flask.route("/commands/leaderboard", methods=["POST"])
+@app.route("/commands/leaderboard", methods=["POST"])
 def leaderboard():
   with open("scores.json", "r") as f:
     scores = json.load(f)
@@ -163,4 +163,4 @@ def leaderboard():
   })
 
 if __name__ == "__main__":
-  flask.run(host="0.0.0.0", port=5000)
+  app.run(host="0.0.0.0", port=5000)
