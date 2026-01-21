@@ -74,12 +74,19 @@ def new_message(event, say, client):
         )
 
       write = parsed
+
+      print("update user")
       with open("user.txt", "w") as f:
         f.write(user_id)
 
+      print("update scores")
       scores[user_id] = scores.get(user_id, 0) + 1
       with open("scores.json", "w") as f:
         json.dump(scores, f)
+
+      print("update number")
+      with open("number.txt", "w") as f:
+        f.write(str(write))
       
     else:
       client.reactions_add(
@@ -94,10 +101,6 @@ def new_message(event, say, client):
           user=user_id,
           text=f"No, the next number {current + 1} (but in words obv)"
         )
-
-      write = current
-    with open("number.txt", "w") as f:
-      f.write(str(write))
   else:
     client.reactions_add(
       channel=event.get("channel"),
