@@ -61,7 +61,7 @@ def new_message(event, say, client):
         reactions.append("sixseven")
       
       if prime(parsed):
-        reactions.append("chess_brilliant")
+        reactions.append("chess-brilliant")
       
       if parsed % 100 == 0:
         reactions.append("tada")
